@@ -1,5 +1,6 @@
 package com.twitter.demo.entity;
 
+
 import lombok.Data;
 
 import javax.persistence.*;
@@ -26,5 +27,10 @@ public class User {
 
     @Column(name = "unlock_date")
     private Timestamp unlockDate;
+
+    private Timestamp lock_date;
+
+    @Column(name = "unlock_date")
+    private Timestamp unLock_date;
 
 }

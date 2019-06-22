@@ -1,5 +1,6 @@
 package com.twitter.demo.entity;
 
+
 import lombok.Data;
 
 import javax.persistence.*;
@@ -27,4 +28,5 @@ public class Post {
 
     @Column(name = "delete_date")
     private Timestamp deleteDate;
+
 }
