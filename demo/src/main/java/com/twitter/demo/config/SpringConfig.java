@@ -1,5 +1,6 @@
 package com.twitter.demo.config;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
@@ -12,7 +13,6 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.sql.DataSource;
 
 @Configuration
@@ -21,12 +21,17 @@ import javax.sql.DataSource;
 public class SpringConfig {
 
     @Bean
+    public ModelMapper modelMapper(){
+        return new ModelMapper();
+    }
+
+    @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:3306/twitter?allowPublicKeyRetrieval=true&useSSL=false");
         dataSource.setUsername("root");
-        dataSource.setPassword("***");
+        dataSource.setPassword("Barcelona19");
         return dataSource;
     }
 

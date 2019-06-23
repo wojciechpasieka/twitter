@@ -4,6 +4,7 @@ package com.twitter.demo.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.sql.Timestamp;
 
 @Data
@@ -20,17 +21,11 @@ public class User {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_details_id")
-    private UserDetails userDetailsId;
+    private UserDetails userDetails;
 
     @Column(name = "lock_date")
-    private Timestamp lockDate;
+    private Date lockDate;
 
     @Column(name = "unlock_date")
-    private Timestamp unlockDate;
-
-    private Timestamp lock_date;
-
-    @Column(name = "unlock_date")
-    private Timestamp unLock_date;
-
+    private Date unlockDate;
 }

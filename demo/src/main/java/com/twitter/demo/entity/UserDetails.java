@@ -3,6 +3,7 @@ package com.twitter.demo.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.sql.Timestamp;
 
 @Data
@@ -15,16 +16,12 @@ public class UserDetails {
     private Long id;
 
     private String name;
-
     private String surname;
-
-    private String surename;
-
     private String email;
 
     @Column(name = "born_date")
-    private Timestamp bornDate;
+    private Date bornDate;
 
     @Column(name = "join_date")
-    private Timestamp joinDate;
+    private Date joinDate;
 }
