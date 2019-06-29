@@ -3,6 +3,7 @@ package com.twitter.demo.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.sql.Timestamp;
 
 @Data
@@ -14,21 +15,21 @@ public class Comment {
     private Long id;
 
     @Column(name = "create_date")
-    private Timestamp createDate;
+    private Date createDate;
 
     private String text;
 
     @Column(name = "modify_date")
-    private Timestamp modifyDate;
+    private Date modifyDate;
 
     @Column(name = "delete_date")
-    private Timestamp deleteDate;
+    private Date deleteDate;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
-    private User userId;
+    private User user;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "post_id")
-    private Post postId;
+    private Post post;
 }

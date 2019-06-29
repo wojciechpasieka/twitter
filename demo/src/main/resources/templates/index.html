@@ -13,5 +13,18 @@
     Zalogowany użytkownik to:
     <label th:text="${userLogin}"></label>
     </tbody>
+
+    <h1>Dyskusja: </h1>
+
+    <table>
+        <tbody>
+        <tr th:each="post : ${allPosts}">
+                <td th:text="${post.text}"></td>
+                <td th:text="${post.createDate}"></td>
+                <td th:text="${post.user.login}"></td>
+        </tr>
+        </tbody>
+    </table>
+
 </body>
 </html>

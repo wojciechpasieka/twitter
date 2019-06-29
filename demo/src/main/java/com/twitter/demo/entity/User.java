@@ -24,18 +24,13 @@ public class User {
     private UserDetails userDetails;
 
     @Column(name = "lock_date")
-    private java.util.Date lockDate;
+    private Date lockDate;
 
     @Column(name = "unlock_date")
     private Date unlockDate;
 
-
-
-
-
     public User() {
     }
-
 
     public Long getId() {
         return id;

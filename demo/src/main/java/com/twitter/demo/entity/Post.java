@@ -5,6 +5,8 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -15,18 +17,21 @@ public class Post {
     private Long id;
 
     @Column(name = "create_date")
-    private Timestamp createDate;
+    private Date createDate;
 
     private String text;
 
     @Column(name = "modify_date")
-    private Timestamp modifyDate;
+    private Date modifyDate;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
-    private User userId;
+    private User user;
+
+    @OneToMany(mappedBy = "post")
+    List<Comment> comments;
 
     @Column(name = "delete_date")
-    private Timestamp deleteDate;
+    private Date deleteDate;
 
 }
