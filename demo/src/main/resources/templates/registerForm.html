@@ -15,12 +15,13 @@
     <p>Name: <input type="text" th:field="*{userDetails.name}"/></p>
     <p>Surname: <input type="text" th:field="*{userDetails.surname}"/></p>
     <p>Email: <input type="text" th:field="*{userDetails.email}"/></p>
-    <p>Born date: <input type="text" th:field="*{userDetails.bornDate}"/></p>
+    <p>Born date: <input type="date" th:field="*{userDetails.bornDate}"/></p>
 
     <p>
         <input type="submit" value="Submit"/>
         <input type="reset" value="Reset"/>
     </p>
+
 </form>
 </body>
 </html>

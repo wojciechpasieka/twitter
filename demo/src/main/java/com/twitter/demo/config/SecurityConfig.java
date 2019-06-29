@@ -16,6 +16,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                .antMatchers("/")
+                .hasAnyAuthority("ROLE_USER", "ROLE_ADMIN", "ROLE_READ_ONLY")
                 .antMatchers("/index/**")
                 .hasAnyAuthority("ROLE_USER", "ROLE_ADMIN", "ROLE_READ_ONLY")
                 .anyRequest().permitAll()
@@ -44,6 +46,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .withUser("admin")
                 .password("password")
                 .roles("ADMIN");
+        auth.jdbcAuthentication()
+                .usersByUsernameQuery("SELECT u.login, u.password, 1 from user u where u.login=?")
+                .authoritiesByUsernameQuery("SELECT u.login, u.role, 1 from user u where u.login=?")
+                .dataSource(jdbcTemplate.getDataSource());
 
     }
 }
