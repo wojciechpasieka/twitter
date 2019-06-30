@@ -6,32 +6,48 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Strona logowania</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/sign-in/"/>
+
+
+    <link type="text/css" rel="stylesheet"
+          href="../static/style.css"
+          th:href="@{/style.css}"/>
+
 </head>
 
-<body style="text-align: center">
-<form th:action="@{/login-process}" method="post">
 
-    <p th:if="${param.error}"
-       th:text="'Podany login lub hasło są nieprawidłowe'"></p>
+<body>
+<div class="contener">
+    <form class="logginform" th:action="@{/login-process}" method="post">
 
-    <h3>Zaloguj się</h3>
+        <p th:if="${param.error}"
+           th:text="'Podany login lub hasło są nieprawidłowe'"></p>
 
-    <label for="inputLogin">Login:</label>
-    <input type="text" id="inputLogin" placeholder="Podaj login"
-           th:required="required" name="username"/>
+        <h1 class="mb-3 font-weight-normal">Please sign in</h1>
 
-    <label for="inputPassword">Password:</label>
-    <input type="password" id="inputPassword" th:required="required"
-           placeholder="Podaj hasło" name="password"/>
 
-    <button type="submit">Zaloguj</button>
+        <input type="text" id="inputLogin" class="form-control fields" placeholder="Podaj login"
+               th:required="required" name="username"/>
 
-</form>
-<h4>Nie masz konta? Zarejestruj się! </h4>
 
-<form action="/register">
-    <button class="btn btn-success" type="submit"> Zarejestruj się!</button>
-</form>
+        <input type="password" id="inputPassword" class="form-control fields" th:required="required"
+               placeholder="Podaj hasło" name="password"/>
+
+        <button class="btn btn-lg btn-primary btn-success zaloguj" type="submit">Zaloguj</button>
+
+    </form>
+
+    <form class="form-registration" action="/register">
+        <h4 class="font-weight-normal">Nie masz konta? Zarejestruj się! </h4>
+        <button class="btn btn-lg btn-primary btn-success" type="submit"> Zarejestruj się!</button>
+    </form>
+
+    <p class="mb-3 text-muted footer">Wojciech Pasieka &copy; 2019</p>
+
+</div>
+
 
 </body>
 </html>

@@ -1,0 +1,47 @@
+body {
+    height: 100%;
+    background-color: #f5f5f5;
+}
+
+.contener{
+    padding: 100px;
+    text-align: center;
+    align-items: center;
+    align-content: center;
+}
+
+
+.logginform {
+    width: 500px;
+    margin: auto;
+    text-align: center;
+
+}
+
+.form-registration{
+    width: 500px;
+    margin: auto;
+    text-align: center;
+}
+
+.zaloguj{
+    background-color:cornflowerblue;
+    margin-bottom: 25px;
+}
+
+.btn-success{
+    width: 350px;
+    padding: 15px;
+    margin-top: 20px;
+}
+
+.fields{
+    padding: 20px;
+    margin: 10px;
+
+}
+
+.footer{
+    padding-top: 20px;
+}
+
