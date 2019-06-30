@@ -15,7 +15,7 @@ import java.text.ParseException;
 public class RegisterController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @GetMapping("/register")
     public ModelAndView registerUser() {
@@ -25,7 +25,6 @@ public class RegisterController {
 
     @PostMapping("/adduser")
     public String addUser(@ModelAttribute User user) throws ParseException {
-        System.out.println(user.getLogin());
         userService.saveUser(user);
 
         return "userRegistered";

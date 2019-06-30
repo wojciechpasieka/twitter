@@ -7,24 +7,50 @@
     <title>index</title>
 </head>
 <body>
-    <h1>Witaj wędrowcze na stronie głównej</h1>
+<h1>Witaj wędrowcze na stronie głównej</h1>
 
-    <tbody>
-    Zalogowany użytkownik to:
-    <label th:text="${userLogin}"></label>
+<tbody>
+Zalogowany użytkownik to:
+<label th:text="${userLogin}"></label>
+</tbody>
+
+
+<form th:action="@{/addpost}" method="post" th:object="${postToInsert}">
+    <p>Napisz nowy post</p>
+    <p><input type="text" th:field="*{text}"/></p>
+
+    <p>
+        <input type="submit" value="Submit"/>
+        <input type="reset" value="Reset"/>
+    </p>
+</form>
+
+<h1>Dyskusja: </h1>
+
+<table>
+    <tbody th:each="post : ${allPosts}">
+    <tr>
+        <td th:text="${post.text}"></td>
+        <td th:text="${post.createDate}"></td>
+        <td th:text="${post.user.login}"></td>
+    <tr>
+        <td>
+            <form th:action="@{/addcomment}" method="post" th:object="${commentToInsert}">
+                <p><input type="text" placeholder="Napisz komentarz Przyjacielu" th:field="*{text}"/>
+                    <input type="hidden" name="postId" th:value="${post.id}"/></p>
+                    <input type="submit" value="Dodaj"/>
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <td>Komentarze:</td>
+    </tr>
+    <tr th:each="comment : ${post.comments}">
+        <td th:text="${comment.text}"></td>
+    </tr>
+    </tr>
     </tbody>
-
-    <h1>Dyskusja: </h1>
-
-    <table>
-        <tbody>
-        <tr th:each="post : ${allPosts}">
-                <td th:text="${post.text}"></td>
-                <td th:text="${post.createDate}"></td>
-                <td th:text="${post.user.login}"></td>
-        </tr>
-        </tbody>
-    </table>
+</table>
 
 </body>
 </html>

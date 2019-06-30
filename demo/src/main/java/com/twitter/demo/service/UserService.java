@@ -46,6 +46,10 @@ public class UserService {
         return allUsers;
     }
 
+    public User findUser(String login){
+        return userRepository.findUserByLogin(login).orElseThrow(()->new RuntimeException("User not found"));
+    }
+
     public String getLoggedUser(){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username;

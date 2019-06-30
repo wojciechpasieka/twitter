@@ -1,21 +1,21 @@
 package com.twitter.demo.service;
 
+import com.twitter.demo.entity.Comment;
 import com.twitter.demo.entity.Post;
 import com.twitter.demo.entity.User;
+import com.twitter.demo.repository.CommentRepository;
 import com.twitter.demo.repository.PostRepository;
-import com.twitter.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
 import java.util.Date;
-import java.util.List;
 
 @Service
-public class PostService {
+public class CommentService {
 
+    private CommentRepository commentRepository;
     private PostRepository postRepository;
 
     @Autowired
@@ -23,25 +23,25 @@ public class PostService {
 
 
     @Autowired
-    public PostService(PostRepository postRepository) {
+    public CommentService(CommentRepository commentRepository, PostRepository postRepository) {
+        this.commentRepository = commentRepository;
         this.postRepository = postRepository;
     }
 
-    public List<Post> getAllPosts(){
-        return postRepository.findAll();
-    }
-
-    public void addPost(Post post) throws ParseException {
+    public void addComment(Comment comment) throws ParseException {
         //setting date of creation
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String newDateFormat = sdf.format(new Date());
-        post.setCreateDate(sdf.parse(newDateFormat));
+        comment.setCreateDate(sdf.parse(newDateFormat));
 
-        //setting user for post
+        //setting user for comment
         User user = userService.findUser(userService.getLoggedUser());
-        post.setUser(user);
+        comment.setUser(user);
 
+        //setting post for comment
+        Post thisPost = postRepository.findOne(comment.getPostId());
+        comment.setPost(thisPost);
 
-        postRepository.save(post);
+        commentRepository.save(comment);
     }
 }

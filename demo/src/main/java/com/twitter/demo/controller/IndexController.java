@@ -1,5 +1,6 @@
 package com.twitter.demo.controller;
 
+import com.twitter.demo.entity.Comment;
 import com.twitter.demo.entity.Post;
 import com.twitter.demo.service.PostService;
 import com.twitter.demo.service.UserService;
@@ -23,6 +24,9 @@ public class IndexController {
     public String index(Model model) {
         String loggedUser = userService.getLoggedUser();
         model.addAttribute("userLogin", loggedUser);
+
+        model.addAttribute("postToInsert", new Post());
+        model.addAttribute("commentToInsert", new Comment());
 
         List<Post> allPosts = postService.getAllPosts();
         model.addAttribute("allPosts", allPosts);

@@ -4,7 +4,27 @@
     <meta charset="UTF-8"/>
     <title>Title</title>
 </head>
-<body>
-User is registered
+<body style="text-align: center">
+
+<h3>User is registered</h3>
+
+<form th:action="@{/login-process}" method="post">
+
+    <p th:if="${param.error}"
+       th:text="'Podany login lub hasło są nieprawidłowe'"></p>
+
+    <h3>Zaloguj się</h3>
+
+    <label for="inputLogin">Login:</label>
+    <input type="text" id="inputLogin" placeholder="Podaj login"
+           th:required="required" name="username"/>
+
+    <label for="inputPassword">Password:</label>
+    <input type="password" id="inputPassword" th:required="required"
+           placeholder="Podaj hasło" name="password"/>
+
+    <button type="submit">Zaloguj</button>
+
+</form>
 </body>
 </html>
