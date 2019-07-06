@@ -35,7 +35,7 @@ public class CommentService {
         comment.setCreateDate(sdf.parse(newDateFormat));
 
         //setting user for comment
-        User user = userService.findUser(userService.getLoggedUser());
+        User user = userService.findUser(userService.getLoggedUsername());
         comment.setUser(user);
 
         //setting post for comment
@@ -43,5 +43,15 @@ public class CommentService {
         comment.setPost(thisPost);
 
         commentRepository.save(comment);
+    }
+
+    public void deleteComment(Comment comment) {
+        Comment commentToDelete = commentRepository.findOne(comment.getId());
+
+        String currentLoggedUser = userService.getLoggedUsername();
+        if (!commentToDelete.getUser().getLogin().equals(currentLoggedUser)) {
+            throw new RuntimeException("Nie Twoj Post!");
+        }
+        commentRepository.delete(commentToDelete);
     }
 }

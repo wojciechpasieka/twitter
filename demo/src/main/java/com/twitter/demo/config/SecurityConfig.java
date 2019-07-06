@@ -6,12 +6,16 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    private PasswordEncoder bCryptPasswordEncoder;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -40,16 +44,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
                 .withUser("user")
-                .password("password")
-                .roles("USER")
+                    .password(bCryptPasswordEncoder.encode("password"))
+                    .roles("USER")
                 .and()
                 .withUser("admin")
-                .password("password")
-                .roles("ADMIN");
+                    .password(bCryptPasswordEncoder.encode("password"))
+                    .roles("ADMIN")
+                .and()
+                .passwordEncoder(bCryptPasswordEncoder);
         auth.jdbcAuthentication()
                 .usersByUsernameQuery("SELECT u.login, u.password, 1 from user u where u.login=?")
                 .authoritiesByUsernameQuery("SELECT u.login, u.role, 1 from user u where u.login=?")
-                .dataSource(jdbcTemplate.getDataSource());
-
+                .dataSource(jdbcTemplate.getDataSource())
+                .passwordEncoder(bCryptPasswordEncoder);
     }
 }

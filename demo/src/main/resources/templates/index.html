@@ -17,37 +17,48 @@
 
 
 <body>
-</body>
 
-    <header>
-        <div class="bg-dark collapse show" id="navbarHeader" style="">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-8 col-md-7 py-4">
-                        <h4 class="text-white">About</h4>
-                        <p class="text-muted">Welcome my Friend to our website. Short introduction. This portal is based on Twitter idea.
-                            It is written in Java with usage technologies like Spring, SpringBoot, MySQL, Hibernate and some other.
-                            You are able to write posts and comments and then you can edit and delete yours. Thank you and have fun! </p>
-                    </div>
-                    <div class="col-sm-4 offset-md-1 py-4">
-                        <h4 class="text-white">You are logged as</h4>
-                        <ul class="list-unstyled">
-                            <li class="text-white">Login: <label class="user_data" th:text="${userLogin}"></label></li>
-                            <li class="text-white">Name: <label class="user_data" th:text="${userLogin}"></label></li>
-                            <li class="text-white">E-mail: <label class="user_data" th:text="${userLogin}"></label></li>
-                        </ul>
-                    </div>
+<header>
+    <div class="bg-dark collapse show" id="navbarHeader" style="">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-md-7 py-4">
+                    <h4 class="text-white">About</h4>
+                    <p class="text-muted">Welcome my Friend to our website. Short introduction. This portal is based on
+                        Twitter idea.
+                        It is written in Java with usage technologies like Spring, SpringBoot, MySQL, Hibernate and some
+                        other.
+                        You are able to write posts and comments and then you can edit and delete yours. Thank you and
+                        have fun! </p>
+                </div>
+                <div class="col-sm-4 offset-md-1 py-4">
+                    <h4 class="text-white">You are logged as</h4>
+                    <ul class="list-unstyled">
+                        <li class="text-white">Login: <label class="user_data" th:text="${loggedUser.login}"></label>
+                        </li>
+                        <li class="text-white">Name: <label class="user_data"
+                                                            th:text="${loggedUser.userDetails.name}"></label></li>
+                        <li class="text-white">E-mail: <label class="user_data"
+                                                              th:text="${loggedUser.userDetails.email}"></label></li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </header>
+    </div>
+</header>
 
 <div class="contener">
+    <form th:action="@{/logout}" method="GET" >
+        <input class="logout" type="submit" value="Log Out"/>
+    </form>
 
     <form class="post_form" th:action="@{/addpost}" method="post" th:object="${postToInsert}">
         <h1 class="new_post">Napisz nowy post</h1>
 
-        <p><textarea class="post-input" type="text" placeholder="Write something..." maxlength="250" th:field="*{text}"/></p>
+        <p>
+            <textarea class="post-input" type="text" placeholder="Write something..." maxlength="250"
+                      th:field="*{text}"/>
+        </p>
 
         <p>
             <input class="btn btn-info post_buttons" type="submit" value="Submit"/>
@@ -55,18 +66,49 @@
         </p>
     </form>
 
+    <div th:switch="${#httpServletRequest.getParameter('message')}">
+        <div th:case="'Success'" class="alert alert-success">
+            <strong>Success!</strong> Post is delated.
+        </div>
+        <div th:case="'Failed'" class="alert alert-danger">
+            <strong>Failure!</strong> You are trying to delete not your post!
+        </div>
+    </div>
+
+    <div th:switch="${#httpServletRequest.getParameter('message_comment')}">
+        <div th:case="'Success'" class="alert alert-success">
+            <strong>Success!</strong> Comment is delated.
+        </div>
+        <div th:case="'Failed'" class="alert alert-danger">
+            <strong>Failure!</strong> You are trying to delete not your comment!
+        </div>
+    </div>
+
+
     <h1>Dyskusja: </h1>
 
     <table>
         <tbody th:each="post : ${allPosts}">
         <tr>
             <td th:text="${post.text}"></td>
-            <td th:text="${post.createDate}"></td>
+
+            <td>
+                 <form th:action="@{/deletePost}" method="post" th:object="${postToDelete}">
+                    <input type="hidden" name="id" th:value="${post.id}"/>
+                    <button value="remove">Delete post</button>
+                </form>
+            </td>
+        <tr>
             <td th:text="${post.user.login}"></td>
+        </tr>
+        <tr>
+            <td th:text="${post.createDate}"></td>
+        </tr>
+        </tr>
         <tr>
             <td>
                 <form th:action="@{/addcomment}" method="post" th:object="${commentToInsert}">
-                    <p><input type="text" placeholder="Napisz komentarz Przyjacielu" th:field="*{text}"/>
+                    <p><input type="text" placeholder="Write a comment..." th:field="*{text}"/>
                         <input type="hidden" name="postId" th:value="${post.id}"/></p>
                     <input type="submit" value="Dodaj"/>
                 </form>
@@ -77,10 +119,19 @@
         </tr>
         <tr th:each="comment : ${post.comments}">
             <td th:text="${comment.text}"></td>
-        </tr>
+            <td th:text="${comment.user.login}"></td>
+            <td th:text="${comment.createDate}"></td>
+
+            <td>
+                <form th:action="@{/deleteComment}" method="post" th:object="${commentToDelete}">
+                    <input type="hidden" name="id" th:value="${comment.id}"/>
+                    <button value="remove">Delete comment</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>
 
 </div>
+</body>
 </html>
