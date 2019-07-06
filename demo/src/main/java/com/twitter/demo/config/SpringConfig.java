@@ -31,7 +31,7 @@ public class SpringConfig {
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:3306/twitter?allowPublicKeyRetrieval=true&useSSL=false");
         dataSource.setUsername("root");
-        dataSource.setPassword("**********");
+        dataSource.setPassword("Barcelona19");
         return dataSource;
     }
 

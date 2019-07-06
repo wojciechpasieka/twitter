@@ -5,23 +5,49 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Rejestracja</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/sign-in/"/>
+
+
+    <link type="text/css" rel="stylesheet"
+          href="../static/style.css"
+          th:href="@{/style.css}"/>
 </head>
+
 <body style="text-align: center">
-<h2>Witaj na stronie rejestracji! Uzupełnij poniższy formularz</h2>
+<div class="contener">
 
-<form th:action="@{/adduser}" method="post" th:object="${userToRegister}">
-    <p>Login: <input type="text" th:field="*{login}"/></p>
-    <p>Password: <input type="password" th:field="*{password}"/></p>
-    <p>Name: <input type="text" th:field="*{userDetails.name}"/></p>
-    <p>Surname: <input type="text" th:field="*{userDetails.surname}"/></p>
-    <p>Email: <input type="text" th:field="*{userDetails.email}"/></p>
-    <p>Born date: <input type="date" th:field="*{userDetails.bornDate}"/></p>
+    <h2 class="welcome">Witaj na stronie rejestracji! Uzupełnij poniższy formularz</h2>
 
-    <p>
-        <input type="submit" value="Submit"/>
-        <input type="reset" value="Reset"/>
-    </p>
+    <form class="logginform" th:action="@{/adduser}" method="post" th:object="${userToRegister}">
+        <p>
+        <div class="form_fields"> Login:</div>
+        <input class="inputs" maxlength="25" th:required="required" type="text" th:field="*{login}"/></p>
+        <p>
+        <div class="form_fields"> Password:</div>
+        <input class="inputs" maxlength="25" th:required="required" type="password" th:field="*{password}"/></p>
+        <p>
+        <div class="form_fields"> Name:</div>
+        <input class="inputs" maxlength="25" th:required="required" type="text" th:field="*{userDetails.name}"/></p>
+        <p>
+        <div class="form_fields"> Surname:</div>
+        <input class="inputs" maxlength="25" th:required="required" type="text" th:field="*{userDetails.surname}"/></p>
+        <p>
+        <div class="form_fields"> Email:</div>
+        <input class="inputs" maxlength="25"  th:required="required" type="email" th:field="*{userDetails.email}"/></p>
+        <p>
+        <div class="form_fields"> Born date:</div>
+        <input class="inputs" maxlength="25" th:required="required" type="date" th:field="*{userDetails.bornDate}"/></p>
 
-</form>
+        <p>
+            <input class="btn btn-info register_buttons" type="submit" value="Submit"/>
+            <input class="btn btn-secondary register_buttons" type="reset" value="Reset"/>
+        </p>
+
+    </form>
+    <p class="mb-3 text-muted footer">Wojciech Pasieka &copy; 2019</p>
+</div>
 </body>
 </html>

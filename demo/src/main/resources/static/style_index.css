@@ -1,0 +1,42 @@
+body {
+    height: 100%;
+    background-color: #f5f5f5;
+}
+
+.contener{
+    padding-left: 10%;
+    padding-right: 10%;
+    text-align: left;
+}
+
+.user_data{
+    font-family: "DejaVu Sans Light";
+    color: cornflowerblue;
+    padding-left: 25px;
+}
+
+.new_post{
+    padding-top: 35px;
+    padding-bottom: 20px;
+    text-align: center;
+    font-family: Century;
+}
+
+.post_form{
+    text-align: center;
+}
+
+
+.post-input{
+    min-width: 50%;
+    min-height: 100px;
+    padding-left: 10px;
+    padding-top: 10px;
+
+}
+
+.post_buttons{
+    min-width: 170px;
+    min-height: 40px;
+    margin: 10px;
+}

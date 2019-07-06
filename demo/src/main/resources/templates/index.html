@@ -5,52 +5,82 @@
 <head>
     <meta charset="UTF-8"/>
     <title>index</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+
+
+    <link type="text/css" rel="stylesheet"
+          href="../static/style_index.css.css"
+          th:href="@{/style_index.css}"/>
 </head>
+
+
 <body>
-<h1>Witaj wędrowcze na stronie głównej</h1>
-
-<tbody>
-Zalogowany użytkownik to:
-<label th:text="${userLogin}"></label>
-</tbody>
-
-
-<form th:action="@{/addpost}" method="post" th:object="${postToInsert}">
-    <p>Napisz nowy post</p>
-    <p><input type="text" th:field="*{text}"/></p>
-
-    <p>
-        <input type="submit" value="Submit"/>
-        <input type="reset" value="Reset"/>
-    </p>
-</form>
-
-<h1>Dyskusja: </h1>
-
-<table>
-    <tbody th:each="post : ${allPosts}">
-    <tr>
-        <td th:text="${post.text}"></td>
-        <td th:text="${post.createDate}"></td>
-        <td th:text="${post.user.login}"></td>
-    <tr>
-        <td>
-            <form th:action="@{/addcomment}" method="post" th:object="${commentToInsert}">
-                <p><input type="text" placeholder="Napisz komentarz Przyjacielu" th:field="*{text}"/>
-                    <input type="hidden" name="postId" th:value="${post.id}"/></p>
-                    <input type="submit" value="Dodaj"/>
-            </form>
-        </td>
-    </tr>
-    <tr>
-        <td>Komentarze:</td>
-    </tr>
-    <tr th:each="comment : ${post.comments}">
-        <td th:text="${comment.text}"></td>
-    </tr>
-    </tr>
-    </tbody>
-</table>
-
 </body>
+
+    <header>
+        <div class="bg-dark collapse show" id="navbarHeader" style="">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8 col-md-7 py-4">
+                        <h4 class="text-white">About</h4>
+                        <p class="text-muted">Welcome my Friend to our website. Short introduction. This portal is based on Twitter idea.
+                            It is written in Java with usage technologies like Spring, SpringBoot, MySQL, Hibernate and some other.
+                            You are able to write posts and comments and then you can edit and delete yours. Thank you and have fun! </p>
+                    </div>
+                    <div class="col-sm-4 offset-md-1 py-4">
+                        <h4 class="text-white">You are logged as</h4>
+                        <ul class="list-unstyled">
+                            <li class="text-white">Login: <label class="user_data" th:text="${userLogin}"></label></li>
+                            <li class="text-white">Name: <label class="user_data" th:text="${userLogin}"></label></li>
+                            <li class="text-white">E-mail: <label class="user_data" th:text="${userLogin}"></label></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+<div class="contener">
+
+    <form class="post_form" th:action="@{/addpost}" method="post" th:object="${postToInsert}">
+        <h1 class="new_post">Napisz nowy post</h1>
+
+        <p><textarea class="post-input" type="text" placeholder="Write something..." maxlength="250" th:field="*{text}"/></p>
+
+        <p>
+            <input class="btn btn-info post_buttons" type="submit" value="Submit"/>
+            <input class="btn btn-secondary post_buttons" type="reset" value="Reset"/>
+        </p>
+    </form>
+
+    <h1>Dyskusja: </h1>
+
+    <table>
+        <tbody th:each="post : ${allPosts}">
+        <tr>
+            <td th:text="${post.text}"></td>
+            <td th:text="${post.createDate}"></td>
+            <td th:text="${post.user.login}"></td>
+        <tr>
+            <td>
+                <form th:action="@{/addcomment}" method="post" th:object="${commentToInsert}">
+                    <p><input type="text" placeholder="Napisz komentarz Przyjacielu" th:field="*{text}"/>
+                        <input type="hidden" name="postId" th:value="${post.id}"/></p>
+                    <input type="submit" value="Dodaj"/>
+                </form>
+            </td>
+        </tr>
+        <tr>
+            <td>Komentarze:</td>
+        </tr>
+        <tr th:each="comment : ${post.comments}">
+            <td th:text="${comment.text}"></td>
+        </tr>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
 </html>
